@@ -55,7 +55,7 @@
     "@vitejs/plugin-react": "^5.1.1",
     "@vitest/ui": "^4.0.13",
     "autoprefixer": "^10.4.22",
-    "eslint": "^8",
+    "eslint": "^9.39.1",
     "eslint-config-next": "^16.0.3",
     "jsdom": "^27.2.0",
     "pa11y-ci": "^4.0.1",
