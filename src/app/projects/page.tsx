@@ -26,5 +26,5 @@ export const metadata = {
 export default function ProjectsPage() {
     const projects = getAllProjects();
 
-    return <ProjectsContent projects={projects} />;
+    return <ProjectsContent />;
 }
