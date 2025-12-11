@@ -10,6 +10,8 @@ import {
     Check
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { toast } from "sonner";
+import ConfirmationModal from "@/components/admin/ConfirmationModal";
 
 interface MediaFile {
     name: string;
@@ -25,6 +27,10 @@ export default function MediaManager() {
     const [isLoading, setIsLoading] = useState(true);
     const [isUploading, setIsUploading] = useState(false);
     const [copiedId, setCopiedId] = useState<string | null>(null);
+
+    // Modal State
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [fileToDelete, setFileToDelete] = useState<string | null>(null);
 
     useEffect(() => {
         fetchFiles();
@@ -57,7 +63,9 @@ export default function MediaManager() {
 
         if (error) {
             console.error('Error uploading file:', error);
+            toast.error("Upload failed: " + error.message);
         } else {
+            toast.success("File uploaded successfully");
             fetchFiles();
         }
         setIsUploading(false);
@@ -70,18 +78,28 @@ export default function MediaManager() {
         setTimeout(() => setCopiedId(null), 2000);
     };
 
-    const deleteFile = async (name: string) => {
-        if (!confirm('Are you sure you want to delete this file?')) return;
+    const handleDeleteClick = (name: string) => {
+        setFileToDelete(name);
+        setIsDeleteModalOpen(true);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!fileToDelete) return;
 
         const { error } = await supabase.storage
             .from('media')
-            .remove([name]);
+            .remove([fileToDelete]);
 
         if (error) {
             console.error('Error deleting file:', error);
+            toast.error("Failed to delete file");
         } else {
+            toast.success("File deleted successfully");
             fetchFiles();
         }
+
+        setIsDeleteModalOpen(false);
+        setFileToDelete(null);
     };
 
     const container = {
@@ -159,7 +177,7 @@ export default function MediaManager() {
                                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4 backdrop-blur-[2px]">
                                     <div className="flex justify-end">
                                         <button
-                                            onClick={() => deleteFile(file.name)}
+                                            onClick={() => handleDeleteClick(file.name)}
                                             className="p-2 bg-red-500/20 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all transform hover:scale-110"
                                             title="Delete"
                                         >
@@ -190,6 +208,19 @@ export default function MediaManager() {
                     })}
                 </div>
             )}
+
+
+            <ConfirmationModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => {
+                    setIsDeleteModalOpen(false);
+                    setFileToDelete(null);
+                }}
+                onConfirm={handleConfirmDelete}
+                title="Delete Media"
+                message="Are you sure you want to delete this file? This action cannot be undone and might break links on your site."
+                confirmText="DELETE FILE"
+            />
         </motion.div>
     );
 }

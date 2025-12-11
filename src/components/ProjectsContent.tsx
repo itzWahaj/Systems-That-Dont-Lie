@@ -129,10 +129,10 @@ export default function ProjectsContent() {
             className="pt-32 pb-20 px-6 min-h-screen max-w-7xl mx-auto"
         >
             <motion.div variants={activeItemVariants} className="mb-16 space-y-4 projects-header">
-                <h1 className="text-4xl md:text-6xl font-serif font-bold text-white">
+                <h1 className="text-4xl md:text-6xl font-serif font-bold text-main">
                     Projects
                 </h1>
-                <p className="text-xl text-gray-400 max-w-2xl">
+                <p className="text-xl text-muted max-w-2xl">
                     A selection of systems engineered for resilience, trust, and performance.
                 </p>
             </motion.div>
@@ -142,7 +142,7 @@ export default function ProjectsContent() {
                     <motion.div key={project.slug} variants={activeItemVariants} className="project-card">
                         <Link
                             href={`/projects/${project.slug}`}
-                            className="group relative bg-surface border border-white/10 rounded-sm overflow-hidden hover:border-accent/50 transition-all duration-500 flex flex-col h-full"
+                            className="group relative bg-surface border-border border rounded-sm overflow-hidden hover:border-accent/50 transition-all duration-500 flex flex-col h-full"
                         >
                             <div className="aspect-video bg-gray-900 relative overflow-hidden">
                                 <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-purple-900/20 group-hover:scale-105 transition-transform duration-700 z-10" />
@@ -153,7 +153,7 @@ export default function ProjectsContent() {
                                         className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500"
                                     />
                                 ) : (
-                                    <div className="absolute inset-0 flex items-center justify-center font-mono text-sm text-white/50">
+                                    <div className="absolute inset-0 flex items-center justify-center font-mono text-sm text-main/50">
                                         [PROJECT_THUMBNAIL]
                                     </div>
                                 )}
@@ -161,19 +161,19 @@ export default function ProjectsContent() {
 
                             <div className="p-8 flex-1 flex flex-col">
                                 <div className="mb-6">
-                                    <h2 className="text-2xl font-bold text-white font-serif mb-2 group-hover:text-accent transition-colors">
+                                    <h2 className="text-2xl font-bold text-main font-serif mb-2 group-hover:text-accent transition-colors">
                                         {project.title}
                                     </h2>
-                                    <p className="text-gray-400 text-sm leading-relaxed line-clamp-3">
+                                    <p className="text-muted text-sm leading-relaxed line-clamp-3">
                                         {project.subtitle}
                                     </p>
                                 </div>
 
-                                <div className="mt-auto flex items-center justify-between border-t border-white/10 pt-6">
+                                <div className="mt-auto flex items-center justify-between border-t border-border pt-6">
                                     <span className="text-xs font-mono text-secondary uppercase tracking-widest">
                                         Case Study
                                     </span>
-                                    <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+                                    <ArrowRight className="w-4 h-4 text-main group-hover:translate-x-1 transition-transform" />
                                 </div>
                             </div>
                         </Link>

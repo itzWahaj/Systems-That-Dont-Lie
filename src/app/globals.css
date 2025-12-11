@@ -3,18 +3,51 @@
 @tailwind utilities;
 
 :root {
+  /* Dark Theme (Gritty/Cinematic) */
+  --background: 11 11 15;
+  /* #0b0b0f */
+  --surface: 18 18 23;
+  /* #121217 */
+  --accent: 199 58 49;
+  /* #c73a31 */
+  --secondary: 230 184 91;
+  /* #e6b85b */
+  --text-main: 255 255 255;
+  /* #ffffff */
+  --text-muted: 161 161 170;
+  /* #a1a1aa */
+  --border: 50 50 50;
+  /* Dark gray */
+
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 11, 11, 15;
-  --background-end-rgb: 11, 11, 15;
+}
+
+/* Light Theme (Gritty Heroic) */
+.light {
+  --background: 245 244 240;
+  /* #f5f4f0 */
+  --surface: 231 229 223;
+  /* #e7e5df */
+  --accent: 139 30 30;
+  /* #8b1e1e */
+  --secondary: 166 124 56;
+  /* #a67c38 */
+  --text-main: 26 26 26;
+  /* #1a1a1a */
+  --text-muted: 68 68 68;
+  /* #444444 */
+  --border: 208 207 201;
+  /* #d0cfc9 */
+
+  --foreground-rgb: 26, 26, 26;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  color: rgb(var(--text-main));
+  background: rgb(var(--background));
   overflow-x: hidden;
   cursor: none !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a,
@@ -59,6 +92,23 @@ textarea,
 }
 
 ::-webkit-scrollbar-thumb:hover {
+  background: #c73a31;
+}
+
+/* Light theme scrollbar */
+.light ::-webkit-scrollbar-track,
+.light::-webkit-scrollbar-track {
+  background: #f5f5f8;
+}
+
+.light ::-webkit-scrollbar-thumb,
+.light::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.light ::-webkit-scrollbar-thumb:hover,
+.light::-webkit-scrollbar-thumb:hover {
   background: #c73a31;
 }
 

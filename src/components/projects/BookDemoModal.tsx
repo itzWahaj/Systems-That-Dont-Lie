@@ -141,7 +141,7 @@ export default function BookDemoModal({ isOpen, onClose, projectTitle }: BookDem
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onClick={onClose}
-                    className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9998]"
+                    className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9998]"
                 />
             )}
             {isOpen && (
@@ -152,7 +152,7 @@ export default function BookDemoModal({ isOpen, onClose, projectTitle }: BookDem
                     exit={{ opacity: 0, scale: 0.95, x: "-50%", y: "-45%" }}
                     className="fixed left-1/2 top-1/2 w-full max-w-lg z-[9999] px-4"
                 >
-                    <div className="bg-[#111] border border-white/10 rounded-sm shadow-2xl overflow-hidden relative">
+                    <div className="bg-background border-border border rounded-sm shadow-2xl overflow-hidden relative">
 
                         {/* Success View */}
                         <AnimatePresence>
@@ -161,7 +161,7 @@ export default function BookDemoModal({ isOpen, onClose, projectTitle }: BookDem
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -20 }}
-                                    className="absolute inset-0 z-10 bg-[#111] flex flex-col items-center justify-center p-8 text-center"
+                                    className="absolute inset-0 z-10 bg-background flex flex-col items-center justify-center p-8 text-center"
                                 >
                                     <motion.div
                                         initial={{ scale: 0 }}
@@ -171,15 +171,15 @@ export default function BookDemoModal({ isOpen, onClose, projectTitle }: BookDem
                                     >
                                         <CheckCircle className="w-10 h-10 text-green-500" />
                                     </motion.div>
-                                    <h3 className="text-2xl font-serif font-bold text-white mb-2">
+                                    <h3 className="text-2xl font-serif font-bold text-main mb-2">
                                         Request Received
                                     </h3>
-                                    <p className="text-gray-400 mb-8 max-w-xs">
+                                    <p className="text-muted mb-8 max-w-xs">
                                         I'll review your requirements for {projectTitle} and get back to you shortly to schedule a walkthrough.
                                     </p>
                                     <button
                                         onClick={onClose}
-                                        className="px-8 py-3 bg-white/10 hover:bg-white/20 text-white font-bold tracking-wider transition-colors rounded-sm"
+                                        className="px-8 py-3 bg-surface hover:bg-surface/80 text-main border border-border"
                                     >
                                         CLOSE
                                     </button>
@@ -188,18 +188,18 @@ export default function BookDemoModal({ isOpen, onClose, projectTitle }: BookDem
                         </AnimatePresence>
 
                         {/* Header */}
-                        <div className="p-6 border-b border-white/10 flex justify-between items-center bg-white/5">
+                        <div className="p-6 border-b border-border flex justify-between items-center bg-surface/50">
                             <div>
-                                <h3 className="text-xl font-serif font-bold text-white">
+                                <h3 className="text-xl font-serif font-bold text-main">
                                     Book a Demo
                                 </h3>
-                                <p className="text-sm text-gray-400 mt-1">
+                                <p className="text-sm text-muted mt-1">
                                     Request a personalized walkthrough of {projectTitle}.
                                 </p>
                             </div>
                             <button
                                 onClick={onClose}
-                                className="text-gray-400 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full"
+                                className="text-muted hover:text-main hover:bg-surface/50"
                             >
                                 <X className="w-5 h-5" />
                             </button>
@@ -215,7 +215,7 @@ export default function BookDemoModal({ isOpen, onClose, projectTitle }: BookDem
                                         type="text"
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                        className={`w-full bg-black/50 border ${errors.name ? 'border-red-500' : 'border-white/10'} rounded-sm py-3 pl-10 pr-4 text-white placeholder:text-gray-600 focus:border-accent focus:outline-none transition-colors`}
+                                        className={`w-full bg-surface border ${errors.name ? 'border-red-500' : 'border-border'} rounded-sm py-3 pl-10 pr-4 text-main placeholder:text-muted focus:border-accent focus:outline-none transition-colors`}
                                         placeholder="John Doe"
                                     />
                                 </div>
@@ -230,7 +230,7 @@ export default function BookDemoModal({ isOpen, onClose, projectTitle }: BookDem
                                         type="email"
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                        className={`w-full bg-black/50 border ${errors.email ? 'border-red-500' : 'border-white/10'} rounded-sm py-3 pl-10 pr-4 text-white placeholder:text-gray-600 focus:border-accent focus:outline-none transition-colors`}
+                                        className={`w-full bg-surface border ${errors.email ? 'border-red-500' : 'border-border'} rounded-sm py-3 pl-10 pr-4 text-main placeholder:text-muted focus:border-accent focus:outline-none transition-colors`}
                                         placeholder="john@example.com"
                                     />
                                 </div>
@@ -245,7 +245,7 @@ export default function BookDemoModal({ isOpen, onClose, projectTitle }: BookDem
                                         type="text"
                                         value={formData.organization}
                                         onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
-                                        className="w-full bg-black/50 border border-white/10 rounded-sm py-3 pl-10 pr-4 text-white placeholder:text-gray-600 focus:border-accent focus:outline-none transition-colors"
+                                        className="w-full bg-surface border border-border rounded-sm py-3 pl-10 pr-4 text-main placeholder:text-muted focus:border-accent focus:outline-none transition-colors"
                                         placeholder="Company Name"
                                     />
                                 </div>
@@ -261,7 +261,7 @@ export default function BookDemoModal({ isOpen, onClose, projectTitle }: BookDem
                                         rows={4}
                                         value={formData.details}
                                         onChange={(e) => setFormData({ ...formData, details: e.target.value })}
-                                        className={`w-full bg-black/50 border ${errors.details ? 'border-red-500' : 'border-white/10'} rounded-sm py-3 pl-10 pr-4 text-white placeholder:text-gray-600 focus:border-accent focus:outline-none transition-colors resize-none`}
+                                        className={`w-full bg-surface border ${errors.details ? 'border-red-500' : 'border-border'} rounded-sm py-3 pl-10 pr-4 text-main placeholder:text-muted focus:border-accent focus:outline-none transition-colors resize-none`}
                                         placeholder="Tell me about how you'd like to use this system..."
                                     />
                                 </div>
@@ -273,14 +273,14 @@ export default function BookDemoModal({ isOpen, onClose, projectTitle }: BookDem
                                     type="button"
                                     onClick={onClose}
                                     disabled={isSubmitting}
-                                    className="flex-1 px-4 py-3 border border-white/10 text-white font-bold tracking-wider hover:bg-white/5 transition-colors rounded-sm disabled:opacity-50"
+                                    className="flex-1 px-4 py-3 border border-border text-main hover:bg-surface/50 hover:border-accent/50 transition-all duration-300 rounded-sm disabled:opacity-50"
                                 >
                                     CANCEL
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="flex-1 px-4 py-3 bg-accent text-white font-bold tracking-wider hover:bg-red-700 transition-colors rounded-sm disabled:opacity-50 flex items-center justify-center gap-2"
+                                    className="flex-1 px-4 py-3 bg-accent text-white font-bold tracking-wider hover:bg-accent/80 shadow-[0_0_20px_rgba(139,30,30,0.3)] hover:shadow-[0_0_30px_rgba(139,30,30,0.5)] transition-all duration-300 rounded-sm disabled:opacity-50 flex items-center justify-center gap-2"
                                 >
                                     {isSubmitting ? (
                                         <>

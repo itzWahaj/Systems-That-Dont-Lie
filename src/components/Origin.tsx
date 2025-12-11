@@ -65,7 +65,7 @@ export default function Origin() {
                     <div className="space-y-2">
                         <span className="text-secondary font-mono text-sm tracking-widest uppercase">Chapter 1 — Origin</span>
                         <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight">
-                            The Architect of <span className="text-white">Trust</span>
+                            The Architect of <span className="text-main">Trust</span>
                         </h2>
                     </div>
 
@@ -126,7 +126,7 @@ export default function Origin() {
                                 className="absolute inset-4 border border-gray-800 rounded-full group-hover:border-secondary/40 transition-colors duration-500"
                             />
                             <div className="text-center group-hover:scale-110 transition-transform duration-500">
-                                <span className="block text-4xl font-bold text-white/20 group-hover:text-white/80 transition-colors">99.9%</span>
+                                <span className="block text-4xl font-bold text-main/20 group-hover:text-main/80 transition-colors">99.9%</span>
                                 <span className="text-[10px] uppercase tracking-widest text-gray-600 group-hover:text-accent transition-colors">Uptime</span>
                             </div>
                         </div>

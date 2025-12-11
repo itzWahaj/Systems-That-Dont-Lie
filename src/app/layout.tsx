@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     }
 };
 
-import { Toaster } from "sonner";
+import ThemedToaster from "@/components/ThemedToaster";
 
 export default function RootLayout({
     children,
@@ -68,7 +68,7 @@ export default function RootLayout({
                     inter.variable,
                     cinzel.variable,
                     sourceCodePro.variable,
-                    "bg-background text-white font-sans antialiased selection:bg-accent selection:text-white"
+                    "font-sans antialiased selection:bg-accent selection:text-white"
                 )}>
                 <Providers>
                     <CustomCursor />
@@ -78,7 +78,7 @@ export default function RootLayout({
                     <main className="relative z-10">
                         {children}
                     </main>
-                    <Toaster position="top-center" theme="dark" />
+                    <ThemedToaster />
                 </Providers>
             </body>
         </html>

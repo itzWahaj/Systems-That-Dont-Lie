@@ -61,7 +61,7 @@ export default function SplashScreen() {
                     initial={{ opacity: 1 }}
                     exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
                     transition={{ duration: 0.8, ease: "easeInOut" }}
-                    className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-background text-white overflow-hidden"
+                    className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-background text-main overflow-hidden"
                 >
                     {/* Background Grid/Effects */}
                     <div className="absolute inset-0 z-0 opacity-10 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />

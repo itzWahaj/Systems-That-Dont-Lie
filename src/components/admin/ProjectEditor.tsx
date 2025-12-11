@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import { toast } from "sonner";
 import { Save, ArrowLeft, Eye, FolderKanban, Plus, X, Lightbulb, Check } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { motion } from "framer-motion";
@@ -189,9 +190,9 @@ export default function ProjectEditor({ initialData, isNew = false }: ProjectEdi
 
         if (error) {
             console.error("Error saving project:", error);
-            alert(`Error: ${error.message}`);
+            toast.error(`Error: ${error.message}`);
         } else {
-            alert('Project saved successfully!');
+            toast.success('Project saved successfully!');
             router.push('/admin/projects');
             router.refresh();
         }
@@ -415,7 +416,7 @@ export default function ProjectEditor({ initialData, isNew = false }: ProjectEdi
                                                 .upload(filePath, file);
 
                                             if (uploadError) {
-                                                alert('Error uploading image: ' + uploadError.message);
+                                                toast.error('Error uploading image: ' + uploadError.message);
                                                 setLoading(false);
                                                 return;
                                             }

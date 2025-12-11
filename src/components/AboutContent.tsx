@@ -161,7 +161,7 @@ export default function AboutContent() {
 
                 {/* Header Section */}
                 <motion.div variants={activeItemVariants} className="space-y-6 border-b border-white/10 pb-12 about-header">
-                    <h1 className="text-4xl md:text-6xl font-serif font-bold text-white">
+                    <h1 className="text-4xl md:text-6xl font-serif font-bold text-main">
                         {title ? (
                             <>
                                 {title.split('—')[0]} — <span className="text-accent">{title.split('—')[1]}</span>
@@ -170,7 +170,7 @@ export default function AboutContent() {
                             <span className="animate-pulse bg-white/10 h-12 w-3/4 block rounded"></span>
                         )}
                     </h1>
-                    <p className="text-xl text-gray-300 leading-relaxed max-w-3xl">
+                    <p className="text-xl text-muted leading-relaxed max-w-3xl">
                         {bio}
                     </p>
                 </motion.div>
@@ -182,7 +182,7 @@ export default function AboutContent() {
 
                         {/* Journey / Timeline */}
                         <motion.section variants={activeItemVariants} className="space-y-8 about-section">
-                            <h2 className="text-2xl font-serif font-bold text-white flex items-center gap-3 mb-8">
+                            <h2 className="text-2xl font-serif font-bold text-main flex items-center gap-3 mb-8">
                                 The Chronicle
                             </h2>
                             <JourneyTimeline />
@@ -190,7 +190,7 @@ export default function AboutContent() {
 
                         {/* Skills */}
                         <motion.section variants={activeItemVariants} className="space-y-6 about-section">
-                            <h2 className="text-2xl font-serif font-bold text-white">Skills</h2>
+                            <h2 className="text-2xl font-serif font-bold text-main">Skills</h2>
                             <motion.ul
                                 className="grid grid-cols-1 sm:grid-cols-2 gap-3"
                                 initial="hidden"
@@ -214,10 +214,10 @@ export default function AboutContent() {
                                             visible: { opacity: 1, y: 0 }
                                         }}
                                         whileHover={{ scale: 1.02, x: 5 }}
-                                        className="flex items-center gap-3 text-gray-300 bg-white/5 px-4 py-3 rounded-sm text-sm border border-transparent hover:border-accent/30 hover:bg-white/10 transition-colors cursor-none group"
+                                        className="flex items-center gap-3 text-muted bg-surface hover:bg-surface/80 hover:border-accent transition-colors cursor-none group"
                                     >
                                         <div className="w-1.5 h-1.5 bg-accent rounded-full group-hover:scale-150 transition-transform" />
-                                        <span className="group-hover:text-white transition-colors">{skill}</span>
+                                        <span className="group-hover:text-main transition-colors">{skill}</span>
                                     </motion.li>
                                 ))}
                             </motion.ul>
@@ -226,7 +226,7 @@ export default function AboutContent() {
 
                     {/* Sidebar / Contact Info */}
                     <motion.div variants={activeItemVariants} className="md:col-span-4 space-y-8 about-sidebar">
-                        <div className="bg-surface border border-white/10 p-6 rounded-sm space-y-6 sticky top-32">
+                        <div className="bg-surface border border-border p-6 rounded-sm space-y-6 sticky top-32">
 
                             {/* Profile Image with Sci-Fi Effects */}
                             <div className="relative group w-48 h-48 mx-auto mb-8">
@@ -234,16 +234,16 @@ export default function AboutContent() {
                                 <motion.div
                                     animate={{ rotate: 360 }}
                                     transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                                    className="absolute inset-[-10px] border border-dashed border-gray-700 rounded-full group-hover:border-accent/50 transition-colors duration-500"
+                                    className="absolute inset-[-10px] border border-dashed border-border rounded-full group-hover:border-accent/50 transition-colors duration-500"
                                 />
                                 <motion.div
                                     animate={{ rotate: -360 }}
                                     transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                                    className="absolute inset-[-20px] border border-gray-800 rounded-full group-hover:border-secondary/50 transition-colors duration-500 opacity-50"
+                                    className="absolute inset-[-20px] border border-border rounded-full group-hover:border-secondary/50 transition-colors duration-500 opacity-50"
                                 />
 
                                 {/* Image Container */}
-                                <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-gray-800 group-hover:border-accent transition-colors duration-500 z-10 bg-black">
+                                <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-border group-hover:border-accent transition-colors duration-500 z-10 bg-background">
                                     {image_url && (
                                         <img
                                             src={image_url}
@@ -254,7 +254,7 @@ export default function AboutContent() {
                                 </div>
 
                                 {/* Status Badge */}
-                                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/80 border border-gray-800 px-3 py-1 rounded-full z-20 whitespace-nowrap">
+                                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-surface/80 backdrop-blur-sm border border-border px-3 py-1 rounded-full z-20 whitespace-nowrap">
                                     <span className="relative flex h-2 w-2">
                                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                                         <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -263,47 +263,47 @@ export default function AboutContent() {
                                 </div>
                             </div>
 
-                            <h3 className="font-mono text-sm text-secondary uppercase tracking-widest border-b border-white/10 pb-4">
+                            <h3 className="font-mono text-sm text-secondary uppercase tracking-widest border-b border-border pb-4">
                                 Contact & Links
                             </h3>
 
                             <ul className="space-y-5">
                                 <li>
                                     <a href={`mailto:${email}`} className="flex items-start gap-3 group">
-                                        <Mail className="w-5 h-5 text-gray-500 group-hover:text-accent transition-colors shrink-0 mt-0.5" />
+                                        <Mail className="w-5 h-5 text-muted group-hover:text-accent transition-colors shrink-0 mt-0.5" />
                                         <div>
-                                            <span className="block text-xs text-gray-500 uppercase tracking-wider mb-1">Email</span>
-                                            <span className="text-sm text-white group-hover:text-accent transition-colors break-all">{email}</span>
+                                            <span className="block text-xs text-muted uppercase tracking-wider mb-1">Email</span>
+                                            <span className="text-sm text-main group-hover:text-accent transition-colors break-all">{email}</span>
                                         </div>
                                     </a>
                                 </li>
                                 <li>
                                     <div className="flex items-start gap-3">
-                                        <Phone className="w-5 h-5 text-gray-500 shrink-0 mt-0.5" />
+                                        <Phone className="w-5 h-5 text-muted shrink-0 mt-0.5" />
                                         <div>
-                                            <span className="block text-xs text-gray-500 uppercase tracking-wider mb-1">Phone</span>
-                                            <span className="text-sm text-white">{phone}</span>
+                                            <span className="block text-xs text-muted uppercase tracking-wider mb-1">Phone</span>
+                                            <span className="text-sm text-main">{phone}</span>
                                         </div>
                                     </div>
                                 </li>
                                 <li>
                                     <div className="flex items-start gap-3">
-                                        <MapPin className="w-5 h-5 text-gray-500 shrink-0 mt-0.5" />
+                                        <MapPin className="w-5 h-5 text-muted shrink-0 mt-0.5" />
                                         <div>
-                                            <span className="block text-xs text-gray-500 uppercase tracking-wider mb-1">Location</span>
-                                            <span className="text-sm text-white">{location}</span>
+                                            <span className="block text-xs text-muted uppercase tracking-wider mb-1">Location</span>
+                                            <span className="text-sm text-main">{location}</span>
                                         </div>
                                     </div>
                                 </li>
                             </ul>
 
-                            <div className="pt-6 border-t border-white/10 space-y-4">
+                            <div className="pt-6 border-t border-border space-y-4">
                                 {linkedin_url && (
                                     <a
                                         href={linkedin_url}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="flex items-center gap-3 text-sm text-gray-400 hover:text-white transition-colors"
+                                        className="flex items-center gap-3 text-sm text-muted hover:text-main transition-colors"
                                     >
                                         <Linkedin className="w-4 h-4" /> LinkedIn
                                     </a>
@@ -313,7 +313,7 @@ export default function AboutContent() {
                                         href={github_url}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="flex items-center gap-3 text-sm text-gray-400 hover:text-white transition-colors"
+                                        className="flex items-center gap-3 text-sm text-muted hover:text-main transition-colors"
                                     >
                                         <Github className="w-4 h-4" /> GitHub
                                     </a>

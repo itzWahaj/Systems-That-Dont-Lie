@@ -38,7 +38,7 @@ export function BBVSHero({ title = "", subtitle = "", demoUrl, repoUrl, category
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.4, duration: 0.8 }}
-                    className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto font-light leading-relaxed"
+                    className="text-xl md:text-2xl text-muted max-w-3xl mx-auto font-light leading-relaxed"
                     style={{ opacity: 1 }} // Fallback for reduced motion
                 >
                     {subtitle}
@@ -56,14 +56,14 @@ export function BBVSHero({ title = "", subtitle = "", demoUrl, repoUrl, category
                             href={demoUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-2 px-6 py-3 bg-accent text-white font-bold rounded-sm hover:bg-red-700 transition-colors"
+                            className="flex items-center gap-2 px-6 py-3 bg-accent text-white hover:bg-accent/80 shadow-[0_0_20px_rgba(139,30,30,0.3)] hover:shadow-[0_0_30px_rgba(139,30,30,0.5)] transition-all duration-300 rounded-sm hover:scale-105 active:scale-95"
                         >
                             <ExternalLink className="w-5 h-5" /> View Live Demo
                         </a>
                     )}
                     <button
                         onClick={() => setIsModalOpen(true)}
-                        className="flex items-center gap-2 px-6 py-3 border border-gray-700 text-white font-bold rounded-sm hover:bg-white/5 transition-colors"
+                        className="flex items-center gap-2 px-6 py-3 border border-border text-main hover:bg-surface/50 hover:border-accent/50 transition-all duration-300 rounded-sm hover:scale-105 active:scale-95"
                     >
                         <ExternalLink className="w-5 h-5" /> Book a Demo
                     </button>

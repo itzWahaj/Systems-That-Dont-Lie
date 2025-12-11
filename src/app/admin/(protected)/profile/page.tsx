@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase";
 import { Save, Plus, Trash2, GripVertical, X, Upload } from "lucide-react";
 import { motion, Reorder } from "framer-motion";
 import { toast } from "sonner";
+import ConfirmationModal from "@/components/admin/ConfirmationModal";
 
 import { useLoader } from "@/context/LoaderContext";
 
@@ -50,6 +51,10 @@ export default function ProfileManager() {
         details: [] as string[]
     });
     const [newDetail, setNewDetail] = useState("");
+
+    // Modal State
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [eventToDelete, setEventToDelete] = useState<string | null>(null);
 
     useEffect(() => {
         fetchData();
@@ -216,15 +221,20 @@ export default function ProfileManager() {
         }
     };
 
-    const handleDeleteEvent = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this event?")) return;
+    const handleDeleteEventClick = (id: string) => {
+        setEventToDelete(id);
+        setIsDeleteModalOpen(true);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!eventToDelete) return;
 
         showLoader();
         try {
             const { error } = await supabase
                 .from('timeline_events')
                 .delete()
-                .eq('id', id);
+                .eq('id', eventToDelete);
 
             if (error) throw error;
             await fetchData();
@@ -234,6 +244,8 @@ export default function ProfileManager() {
             toast.error("Failed to delete event.");
         } finally {
             hideLoader();
+            setIsDeleteModalOpen(false);
+            setEventToDelete(null);
         }
     };
 
@@ -396,7 +408,7 @@ export default function ProfileManager() {
                                                 setAboutData(prev => ({ ...prev, resume_url: publicUrl }));
                                             } catch (error) {
                                                 console.error('Error uploading resume:', error);
-                                                alert('Failed to upload resume');
+                                                toast.error('Failed to upload resume');
                                             }
                                         }}
                                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
@@ -472,7 +484,7 @@ export default function ProfileManager() {
                                     <button onClick={() => openEventModal(event)} className="p-2 hover:bg-white/10 rounded text-gray-400 hover:text-white">
                                         Edit
                                     </button>
-                                    <button onClick={() => handleDeleteEvent(event.id)} className="p-2 hover:bg-red-500/10 rounded text-gray-400 hover:text-red-400">
+                                    <button onClick={() => handleDeleteEventClick(event.id)} className="p-2 hover:bg-red-500/10 rounded text-gray-400 hover:text-red-400">
                                         <Trash2 className="w-4 h-4" />
                                     </button>
                                 </div>
@@ -582,6 +594,19 @@ export default function ProfileManager() {
                     </div>
                 </div>
             )}
+
+
+            <ConfirmationModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => {
+                    setIsDeleteModalOpen(false);
+                    setEventToDelete(null);
+                }}
+                onConfirm={handleConfirmDelete}
+                title="Delete Timeline Event"
+                message="Are you sure you want to delete this event from your timeline? This action cannot be undone."
+                confirmText="DELETE EVENT"
+            />
         </div>
     );
 }

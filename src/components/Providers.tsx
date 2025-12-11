@@ -28,21 +28,24 @@ function ReducedMotionAttribute() {
 }
 
 import { LoaderProvider } from "@/context/LoaderContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 import GlobalLoader from "@/components/GlobalLoader";
 import RouteChangeListener from "@/components/RouteChangeListener";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
     return (
-        <LoaderProvider>
-            <ReducedMotionProvider>
-                <MotionProvider>
-                    <ReducedMotionAttribute />
-                    <AOSInit />
-                    <GlobalLoader />
-                    <RouteChangeListener />
-                    {children}
-                </MotionProvider>
-            </ReducedMotionProvider>
-        </LoaderProvider>
+        <ThemeProvider>
+            <LoaderProvider>
+                <ReducedMotionProvider>
+                    <MotionProvider>
+                        <ReducedMotionAttribute />
+                        <AOSInit />
+                        <GlobalLoader />
+                        <RouteChangeListener />
+                        {children}
+                    </MotionProvider>
+                </ReducedMotionProvider>
+            </LoaderProvider>
+        </ThemeProvider>
     );
 }

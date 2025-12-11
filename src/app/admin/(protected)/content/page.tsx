@@ -15,6 +15,8 @@ import {
     XCircle
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { toast } from "sonner";
+import ConfirmationModal from "@/components/admin/ConfirmationModal";
 
 interface Scroll {
     id: string;
@@ -24,6 +26,7 @@ interface Scroll {
     published: boolean;
     created_at: string;
     category: string;
+    description?: string; // Added description to interface as it might be used
 }
 
 import { useLoader } from "@/context/LoaderContext";
@@ -33,6 +36,10 @@ export default function ContentManager() {
     const [searchTerm, setSearchTerm] = useState("");
     const [scrolls, setScrolls] = useState<Scroll[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+
+    // Modal State
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [scrollToDelete, setScrollToDelete] = useState<string | null>(null);
 
     useEffect(() => {
         fetchScrolls();
@@ -52,21 +59,30 @@ export default function ContentManager() {
         hideLoader();
     };
 
-    const handleDelete = async (id: string) => {
-        if (confirm("Are you sure you want to delete this scroll?")) {
-            showLoader();
-            const { error } = await supabase
-                .from('scrolls')
-                .delete()
-                .eq('id', id);
+    const handleDeleteClick = (id: string) => {
+        setScrollToDelete(id);
+        setIsDeleteModalOpen(true);
+    };
 
-            if (!error) {
-                setScrolls(scrolls.filter(s => s.id !== id));
-            } else {
-                alert("Error deleting scroll: " + error.message);
-            }
-            hideLoader();
+    const handleConfirmDelete = async () => {
+        if (!scrollToDelete) return;
+
+        showLoader();
+        const { error } = await supabase
+            .from('scrolls')
+            .delete()
+            .eq('id', scrollToDelete);
+
+        if (!error) {
+            setScrolls(scrolls.filter(s => s.id !== scrollToDelete));
+            toast.success("Scroll deleted successfully");
+        } else {
+            toast.error("Error deleting scroll: " + error.message);
         }
+
+        setIsDeleteModalOpen(false);
+        setScrollToDelete(null);
+        hideLoader();
     };
 
     const handleTogglePublish = async (scroll: Scroll) => {
@@ -80,8 +96,9 @@ export default function ContentManager() {
             setScrolls(scrolls.map(s =>
                 s.id === scroll.id ? { ...s, published: !s.published } : s
             ));
+            toast.success(scroll.published ? "Scroll unpublished" : "Scroll published live");
         } else {
-            alert("Error updating scroll: " + error.message);
+            toast.error("Error updating scroll: " + error.message);
         }
         hideLoader();
     };
@@ -214,7 +231,7 @@ export default function ContentManager() {
                                                 </button>
                                             </Link>
                                             <button
-                                                onClick={() => handleDelete(scroll.id)}
+                                                onClick={() => handleDeleteClick(scroll.id)}
                                                 className="p-2 hover:bg-red-500/10 rounded-lg text-gray-400 hover:text-red-500 transition-colors border border-transparent hover:border-red-500/20"
                                                 title="Delete"
                                             >
@@ -228,6 +245,18 @@ export default function ContentManager() {
                     </tbody>
                 </table>
             </div>
+
+            <ConfirmationModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => {
+                    setIsDeleteModalOpen(false);
+                    setScrollToDelete(null);
+                }}
+                onConfirm={handleConfirmDelete}
+                title="Delete Scroll"
+                message="Are you sure you want to delete this scroll? This action cannot be undone."
+                confirmText="DELETE PERMANENTLY"
+            />
         </motion.div>
     );
 }

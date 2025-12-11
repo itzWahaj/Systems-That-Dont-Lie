@@ -119,7 +119,7 @@ export default function GSAPHero() {
         <section
             id="hero"
             ref={heroRef}
-            className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-background text-white"
+            className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-background text-main"
         >
             {/* Parallax Background */}
             <div
@@ -142,7 +142,7 @@ export default function GSAPHero() {
                     className="g-hero-sub max-w-3xl mx-auto"
                     style={{ willChange: "transform, opacity", opacity: reduceMotion ? 1 : undefined }}
                 >
-                    <h2 className="text-xl md:text-2xl text-gray-400 font-mono leading-relaxed">
+                    <h2 className="text-xl md:text-2xl text-muted font-mono leading-relaxed">
                         Python for logic. React for clarity. Solidity for truth. Every layer built to resist failure.
                     </h2>
                 </div>
@@ -154,7 +154,7 @@ export default function GSAPHero() {
                 >
                     <Link
                         href="/projects"
-                        className="px-8 py-4 border border-secondary text-secondary font-bold tracking-wider hover:bg-secondary/10 transition-transform duration-150 rounded-sm hover:scale-105 active:scale-95"
+                        className="px-8 py-4 bg-accent text-white font-bold tracking-wider hover:bg-accent/80 shadow-[0_0_20px_rgba(139,30,30,0.3)] hover:shadow-[0_0_30px_rgba(139,30,30,0.5)] transition-all duration-300 rounded-sm hover:scale-105 active:scale-95"
                     >
                         View Projects
                     </Link>

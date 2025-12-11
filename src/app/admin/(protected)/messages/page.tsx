@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
+import ConfirmationModal from "@/components/admin/ConfirmationModal";
 import { useLoader } from "@/context/LoaderContext";
 
 interface Message {
@@ -34,6 +35,10 @@ export default function MessagesManager() {
     const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
     const [replyText, setReplyText] = useState("");
     const [isSending, setIsSending] = useState(false);
+
+    // Modal State
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [messageToDelete, setMessageToDelete] = useState<string | null>(null);
 
     useEffect(() => {
         setReplyText("");
@@ -57,23 +62,31 @@ export default function MessagesManager() {
         hideLoader();
     };
 
-    const handleDelete = async (id: string) => {
-        if (confirm("Are you sure you want to delete this message?")) {
-            showLoader();
-            const { error } = await supabase
-                .from('messages')
-                .delete()
-                .eq('id', id);
+    const handleDeleteClick = (id: string) => {
+        setMessageToDelete(id);
+        setIsDeleteModalOpen(true);
+    };
 
-            if (!error) {
-                setMessages(messages.filter(m => m.id !== id));
-                toast.success("Message deleted");
-                if (selectedMessage?.id === id) setSelectedMessage(null);
-            } else {
-                toast.error("Error deleting message: " + error.message);
-            }
-            hideLoader();
+    const handleConfirmDelete = async () => {
+        if (!messageToDelete) return;
+
+        showLoader();
+        const { error } = await supabase
+            .from('messages')
+            .delete()
+            .eq('id', messageToDelete);
+
+        if (!error) {
+            setMessages(messages.filter(m => m.id !== messageToDelete));
+            toast.success("Message deleted");
+            if (selectedMessage?.id === messageToDelete) setSelectedMessage(null);
+        } else {
+            toast.error("Error deleting message: " + error.message);
         }
+
+        hideLoader();
+        setIsDeleteModalOpen(false);
+        setMessageToDelete(null);
     };
 
     const handleSendReply = async () => {
@@ -209,7 +222,7 @@ export default function MessagesManager() {
                                         {new Date(selectedMessage.created_at).toLocaleString()}
                                     </span>
                                     <button
-                                        onClick={() => handleDelete(selectedMessage.id)}
+                                        onClick={() => handleDeleteClick(selectedMessage.id)}
                                         className="p-2 hover:bg-red-500/10 rounded-lg text-gray-400 hover:text-red-500 transition-colors border border-transparent hover:border-red-500/20"
                                         title="Delete"
                                     >
@@ -276,6 +289,19 @@ export default function MessagesManager() {
                     )}
                 </div>
             </div>
-        </motion.div>
+
+
+            <ConfirmationModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => {
+                    setIsDeleteModalOpen(false);
+                    setMessageToDelete(null);
+                }}
+                onConfirm={handleConfirmDelete}
+                title="Delete Message"
+                message="Are you sure you want to delete this message? This action cannot be undone."
+                confirmText="DELETE MESSAGE"
+            />
+        </motion.div >
     );
 }

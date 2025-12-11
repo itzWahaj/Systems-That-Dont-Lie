@@ -16,6 +16,8 @@ import {
     XCircle
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { toast } from "sonner";
+import ConfirmationModal from "@/components/admin/ConfirmationModal";
 
 interface Project {
     id: string;
@@ -36,6 +38,9 @@ export default function ProjectsManager() {
     const [projects, setProjects] = useState<Project[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [projectToDelete, setProjectToDelete] = useState<string | null>(null);
+
     useEffect(() => {
         fetchProjects();
     }, []);
@@ -54,21 +59,30 @@ export default function ProjectsManager() {
         hideLoader();
     };
 
-    const handleDelete = async (id: string) => {
-        if (confirm("Are you sure you want to delete this project?")) {
-            showLoader();
-            const { error } = await supabase
-                .from('projects')
-                .delete()
-                .eq('id', id);
+    const handleDeleteClick = (id: string) => {
+        setProjectToDelete(id);
+        setIsDeleteModalOpen(true);
+    };
 
-            if (!error) {
-                setProjects(projects.filter(p => p.id !== id));
-            } else {
-                alert("Error deleting project: " + error.message);
-            }
-            hideLoader();
+    const handleConfirmDelete = async () => {
+        if (!projectToDelete) return;
+
+        showLoader();
+        const { error } = await supabase
+            .from('projects')
+            .delete()
+            .eq('id', projectToDelete);
+
+        if (!error) {
+            setProjects(projects.filter(p => p.id !== projectToDelete));
+            toast.success("Project deleted successfully");
+        } else {
+            toast.error("Error deleting project: " + error.message);
         }
+
+        setIsDeleteModalOpen(false);
+        setProjectToDelete(null);
+        hideLoader();
     };
 
     const handleTogglePublish = async (project: Project) => {
@@ -82,8 +96,9 @@ export default function ProjectsManager() {
             setProjects(projects.map(p =>
                 p.id === project.id ? { ...p, published: !p.published } : p
             ));
+            toast.success(project.published ? "Project unpublished" : "Project published live");
         } else {
-            alert("Error updating project: " + error.message);
+            toast.error("Error updating project: " + error.message);
         }
         hideLoader();
     };
@@ -234,7 +249,7 @@ export default function ProjectsManager() {
                                                 </button>
                                             </Link>
                                             <button
-                                                onClick={() => handleDelete(project.id)}
+                                                onClick={() => handleDeleteClick(project.id)}
                                                 className="p-2 hover:bg-red-500/10 rounded-lg text-gray-400 hover:text-red-500 transition-colors border border-transparent hover:border-red-500/20"
                                                 title="Delete"
                                             >
@@ -248,6 +263,19 @@ export default function ProjectsManager() {
                     </tbody>
                 </table>
             </div>
-        </motion.div>
+
+
+            <ConfirmationModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => {
+                    setIsDeleteModalOpen(false);
+                    setProjectToDelete(null);
+                }}
+                onConfirm={handleConfirmDelete}
+                title="Delete Project"
+                message="Are you sure you want to delete this project? This action cannot be undone."
+                confirmText="DELETE PERMANENTLY"
+            />
+        </motion.div >
     );
 }

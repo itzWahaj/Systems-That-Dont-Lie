@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import { toast } from "sonner";
 import { Save, ArrowLeft, Eye, FileText, Calendar, Clock, Sparkles } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { motion } from "framer-motion";
@@ -81,8 +82,9 @@ export default function ScrollEditor({ initialData, isNew = false }: ScrollEdito
         }
 
         if (error) {
-            alert(`Error: ${error.message}`);
+            toast.error(`Error: ${error.message}`);
         } else {
+            toast.success('Scroll saved successfully!');
             router.push('/admin/content');
         }
         setLoading(false);

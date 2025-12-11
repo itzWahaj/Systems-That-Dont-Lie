@@ -12,8 +12,8 @@ const iconMap: { [key: string]: any } = {
     'Code': <Code className="w-6 h-6 text-accent" />,
     'Scroll': <Scroll className="w-6 h-6 text-secondary" />,
     'Sparkles': <Sparkles className="w-6 h-6 text-purple-400" />,
-    'Feather': <Feather className="w-6 h-6 text-gray-400" />,
-    'Book': <Book className="w-6 h-6 text-gray-400" />,
+    'Feather': <Feather className="w-6 h-6 text-muted" />,
+    'Book': <Book className="w-6 h-6 text-muted" />,
     'Archive': <Archive className="w-6 h-6 text-yellow-500" />,
     'Terminal': <Terminal className="w-6 h-6 text-green-400" />
 };
@@ -40,7 +40,7 @@ export default function ScrollPage({ params }: { params: { slug: string } }) {
     }, [params.slug]);
 
     if (isLoading) {
-        return <div className="min-h-screen bg-background text-white flex items-center justify-center">Loading scroll...</div>;
+        return <div className="min-h-screen bg-background text-main flex items-center justify-center">Loading scroll...</div>;
     }
 
     if (!scroll) {
@@ -48,7 +48,7 @@ export default function ScrollPage({ params }: { params: { slug: string } }) {
     }
 
     return (
-        <div className="min-h-screen bg-background text-white pt-32 pb-20 px-6">
+        <div className="min-h-screen bg-background text-main pt-32 pb-20 px-6">
             <article className="max-w-3xl mx-auto">
                 {/* Back Link */}
                 <motion.div
@@ -57,7 +57,7 @@ export default function ScrollPage({ params }: { params: { slug: string } }) {
                     transition={{ duration: 0.5 }}
                     className="mb-12"
                 >
-                    <Link href="/codex" className="inline-flex items-center gap-2 text-gray-500 hover:text-accent transition-colors font-mono text-sm cursor-none">
+                    <Link href="/codex" className="inline-flex items-center gap-2 text-muted hover:text-accent transition-colors font-mono text-sm cursor-none">
                         <ArrowLeft className="w-4 h-4" /> Return to the Library
                     </Link>
                 </motion.div>
@@ -67,16 +67,16 @@ export default function ScrollPage({ params }: { params: { slug: string } }) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
-                    className="space-y-6 border-b border-white/10 pb-12 mb-12"
+                    className="space-y-6 border-b border-border pb-12 mb-12"
                 >
                     <div className="flex items-center gap-4">
                         <span className={`font-mono text-xs uppercase tracking-wider border px-3 py-1 rounded-full ${scroll.category === 'Spellbook' ? 'border-accent/20 text-accent' :
-                            scroll.category === 'Reflections' ? 'border-gray-500/20 text-gray-400' :
+                            scroll.category === 'Reflections' ? 'border-gray-500/20 text-muted' :
                                 'border-secondary/20 text-secondary'
                             }`}>
                             {scroll.category}
                         </span>
-                        <div className="flex items-center gap-4 text-gray-500 font-mono text-xs">
+                        <div className="flex items-center gap-4 text-muted font-mono text-xs">
                             <span className="flex items-center gap-1.5">
                                 <Calendar className="w-3 h-3" /> {scroll.date}
                             </span>
@@ -96,7 +96,7 @@ export default function ScrollPage({ params }: { params: { slug: string } }) {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    className="prose prose-invert prose-lg max-w-none prose-headings:font-serif prose-headings:text-white prose-p:text-gray-300 prose-a:text-accent prose-code:text-accent prose-pre:bg-black/50 prose-pre:border prose-pre:border-white/10"
+                    className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-main prose-p:text-muted prose-strong:text-main prose-a:text-accent prose-code:text-accent prose-pre:bg-surface prose-pre:border prose-pre:border-border"
                 >
                     <ReactMarkdown>{scroll.content}</ReactMarkdown>
                 </motion.div>
@@ -106,13 +106,13 @@ export default function ScrollPage({ params }: { params: { slug: string } }) {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.5 }}
-                    className="mt-20 pt-10 border-t border-white/10 flex justify-between items-center"
+                    className="mt-20 pt-10 border-t border-border flex justify-between items-center"
                 >
-                    <span className="font-serif italic text-gray-600">
+                    <span className="font-serif italic text-muted">
                         End of Scroll
                     </span>
-                    <div className="p-4 bg-surface/30 rounded-full border border-white/5">
-                        {iconMap[scroll.icon] || <Scroll className="w-6 h-6 text-gray-400" />}
+                    <div className="p-4 bg-surface/30 rounded-full border border-border">
+                        {iconMap[scroll.icon] || <Scroll className="w-6 h-6 text-muted" />}
                     </div>
                 </motion.div>
             </article>

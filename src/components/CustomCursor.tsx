@@ -2,10 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export default function CustomCursor() {
-    const { reduceMotion } = useReducedMotion();
     const [isVisible, setIsVisible] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
     const [isText, setIsText] = useState(false);
@@ -27,7 +25,7 @@ export default function CustomCursor() {
     }, []);
 
     useEffect(() => {
-        if (reduceMotion || isTouch) return;
+        if (isTouch) return;
 
         const moveMouse = (e: MouseEvent) => {
             mouseX.set(e.clientX);
@@ -54,9 +52,9 @@ export default function CustomCursor() {
             window.removeEventListener("mousemove", moveMouse);
             window.removeEventListener("mouseover", checkHover);
         };
-    }, [mouseX, mouseY, isVisible, reduceMotion, isTouch]);
+    }, [mouseX, mouseY, isVisible, isTouch]);
 
-    if (reduceMotion || isTouch) return null;
+    if (isTouch) return null;
 
     return (
         <>

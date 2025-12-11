@@ -1,6 +1,6 @@
 "use client";
 
-import { Mail, Phone, MapPin, Github, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Github, Linkedin, Calendar } from "lucide-react";
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useEffect, useRef, useState } from "react";
@@ -133,11 +133,11 @@ export default function ContactContent() {
             <div className="max-w-3xl w-full text-center space-y-12">
                 <motion.div variants={activeItemVariants} className="contact-header">
                     <h1 className="text-5xl md:text-7xl font-serif font-bold">
-                        Let's Build <br /> <span className="text-gray-600">Something Real</span>
+                        Let's Build <br /> <span className="text-muted">Something Real</span>
                     </h1>
                 </motion.div>
 
-                <motion.p variants={activeItemVariants} className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed contact-text">
+                <motion.p variants={activeItemVariants} className="text-xl text-muted max-w-2xl mx-auto leading-relaxed contact-text">
                     I'm currently open to new opportunities. Whether you have a question, a project idea, or just want to say hi, I'll try my best to get back to you.
                 </motion.p>
 
@@ -146,31 +146,31 @@ export default function ContactContent() {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => openModal('email')}
-                        className="group flex items-center gap-3 px-8 py-4 bg-white text-black font-bold tracking-wider hover:bg-gray-200 transition-all duration-300 rounded-full min-w-[200px] justify-center shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]"
+                        className="group flex items-center gap-3 px-8 py-4 bg-accent text-white hover:bg-accent/80 shadow-[0_0_20px_rgba(139,30,30,0.3)] hover:shadow-[0_0_30px_rgba(139,30,30,0.5)] transition-all duration-300 rounded-sm"
                     >
                         <Mail className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                         EMAIL ME
                     </motion.button>
-                    <motion.a
+                    <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        href={`tel:${contactInfo.phone.replace(/\s+/g, '')}`}
-                        className="group flex items-center gap-3 px-8 py-4 border border-white/20 text-white font-bold tracking-wider hover:bg-white/10 transition-all duration-300 rounded-full min-w-[200px] justify-center hover:border-white/50"
+                        onClick={() => openModal('appointment')}
+                        className="group flex items-center gap-3 px-8 py-4 border border-border text-main hover:bg-surface/50 hover:border-accent/50 transition-all duration-300 rounded-sm"
                     >
-                        <Phone className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-                        CALL ME
-                    </motion.a>
+                        <Calendar className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                        SCHEDULE A 15-MIN LAB
+                    </motion.button>
                 </motion.div>
 
                 {/* Direct Contact Details */}
-                <motion.div variants={activeItemVariants} className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-12 border-t border-white/10 mt-12 contact-details">
+                <motion.div variants={activeItemVariants} className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-12 border-t border-border mt-12 contact-details">
                     {/* Email Column */}
                     <motion.div whileHover={{ y: -5 }} className="flex flex-col items-center space-y-2 group cursor-none">
-                        <div className="p-4 bg-white/5 rounded-full group-hover:bg-accent/20 transition-colors duration-300">
+                        <div className="p-4 bg-surface border border-border rounded-full group-hover:bg-accent/20 transition-colors duration-300">
                             <Mail className="w-6 h-6 text-accent group-hover:scale-110 transition-transform" />
                         </div>
-                        <span className="text-xs font-mono text-gray-500 uppercase tracking-widest">Email</span>
-                        <span className="text-sm text-white group-hover:text-accent transition-colors">{contactInfo.email}</span>
+                        <span className="text-xs font-mono text-muted uppercase tracking-widest">Email</span>
+                        <span className="text-sm text-main group-hover:text-accent transition-colors">{contactInfo.email}</span>
                     </motion.div>
 
                     {/* Phone Column with Socials */}
@@ -180,20 +180,20 @@ export default function ContactContent() {
                             <SocialLink href={contactInfo.linkedin_url} icon={<Linkedin className="w-5 h-5" />} label="LinkedIn" />
                         </div>
 
-                        <div className="p-4 bg-white/5 rounded-full group-hover:bg-accent/20 transition-colors duration-300">
+                        <div className="p-4 bg-surface border border-border rounded-full group-hover:bg-accent/20 transition-colors duration-300">
                             <Phone className="w-6 h-6 text-accent group-hover:scale-110 transition-transform" />
                         </div>
                         <span className="text-xs font-mono text-gray-500 uppercase tracking-widest">Phone</span>
-                        <span className="text-sm text-white group-hover:text-accent transition-colors">{contactInfo.phone}</span>
+                        <span className="text-sm text-main group-hover:text-accent transition-colors">{contactInfo.phone}</span>
                     </motion.div>
 
                     {/* Location Column */}
                     <motion.div whileHover={{ y: -5 }} className="flex flex-col items-center space-y-2 group cursor-none">
-                        <div className="p-4 bg-white/5 rounded-full group-hover:bg-accent/20 transition-colors duration-300">
+                        <div className="p-4 bg-surface border border-border rounded-full group-hover:bg-accent/20 transition-colors duration-300">
                             <MapPin className="w-6 h-6 text-accent group-hover:scale-110 transition-transform" />
                         </div>
                         <span className="text-xs font-mono text-gray-500 uppercase tracking-widest">Location</span>
-                        <span className="text-sm text-white text-center group-hover:text-accent transition-colors">{contactInfo.location}</span>
+                        <span className="text-sm text-main text-center group-hover:text-accent transition-colors">{contactInfo.location}</span>
                     </motion.div>
                 </motion.div>
             </div>
@@ -210,7 +210,7 @@ function SocialLink({ href, icon, label }: { href: string, icon: React.ReactNode
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full border border-transparent hover:border-white/20 cursor-none"
+            className="text-muted hover:text-main hover:bg-surface/50 hover:border-border cursor-none"
             aria-label={label}
         >
             {icon}

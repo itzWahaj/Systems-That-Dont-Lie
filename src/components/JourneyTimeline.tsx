@@ -131,12 +131,12 @@ export default function JourneyTimeline() {
         setExpandedId(expandedId === id ? null : id);
     };
 
-    if (isLoading) return <div className="text-gray-500 font-mono text-sm">Loading chronicle...</div>;
+    if (isLoading) return <div className="text-muted font-mono text-sm">Loading chronicle...</div>;
 
     return (
         <div className="relative py-10 pl-4 md:pl-0">
             {/* Vertical Line */}
-            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-gray-700 to-transparent" />
+            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-border to-transparent" />
 
             <div className="space-y-16">
                 {timelineData.map((event, index) => {
@@ -155,10 +155,10 @@ export default function JourneyTimeline() {
                                 }`}
                         >
                             {/* Timeline Node (Rune) */}
-                            <div className="absolute left-8 md:left-1/2 -translate-x-1/2 flex items-center justify-center w-12 h-12 bg-background border border-gray-700 rounded-full z-10 group cursor-none hover:border-accent transition-colors"
+                            <div className="absolute left-8 md:left-1/2 -translate-x-1/2 flex items-center justify-center w-12 h-12 bg-background border border-border rounded-full z-10 group cursor-none hover:border-accent transition-colors"
                                 onClick={() => toggleExpand(event.id)}
                             >
-                                <div className={`text-gray-400 group-hover:text-accent transition-colors ${isExpanded ? "text-accent" : ""}`}>
+                                <div className={`text-muted group-hover:text-accent transition-colors ${isExpanded ? "text-accent" : ""}`}>
                                     <IconComponent className="w-5 h-5" />
                                 </div>
                             </div>
@@ -167,19 +167,19 @@ export default function JourneyTimeline() {
                             <div className={`w-full md:w-1/2 pl-16 md:pl-0 ${isEven ? "md:pr-10 text-left md:text-right" : "md:pl-10 text-left"
                                 }`}>
                                 <div
-                                    className={`p-6 border border-gray-800 bg-surface/30 rounded-sm hover:border-gray-600 transition-all duration-300 cursor-none group ${isExpanded ? "border-accent/30 bg-surface/50" : ""}`}
+                                    className={`p-6 border border-border bg-surface/30 rounded-sm hover:border-gray-600 transition-all duration-300 cursor-none group ${isExpanded ? "border-accent/30 bg-surface/50" : ""}`}
                                     onClick={() => toggleExpand(event.id)}
                                 >
                                     <span className="text-secondary font-mono text-xs tracking-widest uppercase mb-2 block">
                                         {event.chapter}
                                     </span>
-                                    <h3 className="text-xl font-bold text-white mb-1 group-hover:text-accent transition-colors">
+                                    <h3 className="text-xl font-bold text-main mb-1 group-hover:text-accent transition-colors">
                                         {event.title}
                                     </h3>
-                                    <span className="text-sm text-gray-500 font-mono mb-4 block">
+                                    <span className="text-sm text-muted font-mono mb-4 block">
                                         {event.date}
                                     </span>
-                                    <p className="text-gray-400 text-sm leading-relaxed mb-4">
+                                    <p className="text-muted text-sm leading-relaxed mb-4">
                                         {event.description}
                                     </p>
 
@@ -192,8 +192,8 @@ export default function JourneyTimeline() {
                                                 exit={{ height: 0, opacity: 0 }}
                                                 className="overflow-hidden"
                                             >
-                                                <div className={`pt-4 border-t border-white/5 space-y-3 ${isEven ? "md:flex md:flex-col md:items-end" : ""}`}>
-                                                    <ul className={`space-y-2 text-sm text-gray-400 ${isEven ? "md:text-right" : ""}`}>
+                                                <div className={`pt-4 border-t border-border space-y-3 ${isEven ? "md:flex md:flex-col md:items-end" : ""}`}>
+                                                    <ul className={`space-y-2 text-sm text-muted ${isEven ? "md:text-right" : ""}`}>
                                                         {event.details.map((detail, i) => (
                                                             <li key={i} className="flex items-start gap-2">
                                                                 <span className="text-accent mt-1.5 text-[10px]">◆</span>
@@ -205,7 +205,7 @@ export default function JourneyTimeline() {
                                                     {event.tech && (
                                                         <div className={`flex flex-wrap gap-2 pt-2 ${isEven ? "md:justify-end" : ""}`}>
                                                             {event.tech.map((t, i) => (
-                                                                <span key={i} className="px-2 py-1 text-[10px] font-mono border border-white/10 rounded-full text-gray-500">
+                                                                <span key={i} className="px-2 py-1 text-[10px] font-mono border border-border rounded-full text-muted">
                                                                     {t}
                                                                 </span>
                                                             ))}
@@ -216,7 +216,7 @@ export default function JourneyTimeline() {
                                         )}
                                     </AnimatePresence>
 
-                                    <div className={`mt-4 flex items-center gap-2 text-xs font-mono text-gray-600 group-hover:text-gray-400 transition-colors ${isEven ? "md:justify-end" : ""}`}>
+                                    <div className={`mt-4 flex items-center gap-2 text-xs font-mono text-muted group-hover:text-gray-400 transition-colors ${isEven ? "md:justify-end" : ""}`}>
                                         {isExpanded ? (
                                             <>Close Chronicle <ChevronUp className="w-3 h-3" /></>
                                         ) : (

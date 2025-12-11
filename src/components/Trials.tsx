@@ -17,7 +17,7 @@ export default function Trials() {
                 >
                     <span className="text-secondary font-mono text-sm tracking-widest uppercase">Chapter 2 — The Trials</span>
                     <h2 className="text-4xl md:text-5xl font-serif font-bold mt-4 mb-8">The Cost of Fragility</h2>
-                    <p className="text-xl md:text-2xl text-gray-300 leading-relaxed font-light">
+                    <p className="text-xl md:text-2xl text-muted leading-relaxed font-light">
                         Elections lose legitimacy because humans and single servers can be lied to.
                         I build for edge cases: <span className="text-accent">network throttling, duplicate identities, hardware failure</span>,
                         and the quiet ways data is manipulated.
@@ -45,20 +45,20 @@ export default function Trials() {
                         <motion.div
                             key={index}
                             whileHover={{ scale: 1.02, backgroundColor: "rgba(18, 18, 23, 0.8)" }}
-                            className="sr-elem p-8 border border-gray-800 bg-surface/50 transition-all duration-300 group cursor-none relative overflow-hidden"
+                            className="sr-elem p-8 border border-border bg-surface/50 transition-all duration-300 group cursor-none relative overflow-hidden"
                         >
                             <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                             <motion.div
                                 whileHover={{ rotate: [0, -10, 10, -5, 5, 0], transition: { duration: 0.5 } }}
-                                className="mb-6 p-3 bg-background w-fit rounded-sm border border-gray-800 group-hover:border-accent/50 transition-colors relative z-10"
+                                className="mb-6 p-3 bg-background w-fit rounded-sm border border-border group-hover:border-accent/50 transition-colors relative z-10"
                             >
                                 {item.icon}
                             </motion.div>
 
                             <div className="relative z-10">
-                                <h3 className="text-xl font-bold text-white mb-3 font-serif group-hover:text-accent transition-colors">{item.title}</h3>
-                                <p className="text-gray-400 font-mono text-sm group-hover:text-gray-300 transition-colors">{item.desc}</p>
+                                <h3 className="text-xl font-bold text-main mb-3 font-serif group-hover:text-accent transition-colors">{item.title}</h3>
+                                <p className="text-muted font-mono text-sm group-hover:text-main transition-colors">{item.desc}</p>
                             </div>
                         </motion.div>
                     ))}
