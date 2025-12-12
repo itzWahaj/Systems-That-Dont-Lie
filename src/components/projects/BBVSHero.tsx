@@ -61,6 +61,16 @@ export function BBVSHero({ title = "", subtitle = "", demoUrl, repoUrl, category
                             <ExternalLink className="w-5 h-5" /> View Live Demo
                         </a>
                     )}
+                    {repoUrl && (
+                        <a
+                            href={repoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 px-6 py-3 border border-border text-main hover:bg-surface/50 hover:border-accent/50 transition-all duration-300 rounded-sm hover:scale-105 active:scale-95"
+                        >
+                            <Github className="w-5 h-5" /> GitHub Repo
+                        </a>
+                    )}
                     <button
                         onClick={() => setIsModalOpen(true)}
                         className="flex items-center gap-2 px-6 py-3 border border-border text-main hover:bg-surface/50 hover:border-accent/50 transition-all duration-300 rounded-sm hover:scale-105 active:scale-95"

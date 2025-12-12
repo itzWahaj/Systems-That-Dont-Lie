@@ -16,7 +16,7 @@ interface ContactModalProps {
 
 const appointmentSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters"),
-    email: z.string().email("Please enter a valid email address"),
+    email: z.string().regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Please enter a valid email address (e.g. user@domain.com)"),
     date: z.string().min(1, "Please select a date"),
     time: z.string().min(1, "Please select a time"),
     topic: z.string().min(5, "Please provide a topic or details"),
@@ -24,7 +24,7 @@ const appointmentSchema = z.object({
 
 const messageSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters"),
-    email: z.string().email("Please enter a valid email address"),
+    email: z.string().regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Please enter a valid email address (e.g. user@domain.com)"),
     message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
@@ -248,7 +248,7 @@ export default function ContactModal({ isOpen, onClose, mode }: ContactModalProp
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                         className={`w-full bg-surface border ${errors.name ? 'border-red-500' : 'border-border'} rounded-sm py-3 pl-10 pr-4 text-main placeholder:text-muted focus:border-accent focus:outline-none transition-colors`}
-                                        placeholder="John Doe"
+                                        placeholder=""
                                     />
                                 </div>
                                 {errors.name && <p className="text-red-500 text-xs flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.name}</p>}
@@ -263,7 +263,7 @@ export default function ContactModal({ isOpen, onClose, mode }: ContactModalProp
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                         className={`w-full bg-surface border ${errors.email ? 'border-red-500' : 'border-border'} rounded-sm py-3 pl-10 pr-4 text-main placeholder:text-muted focus:border-accent focus:outline-none transition-colors`}
-                                        placeholder="john@example.com"
+                                        placeholder=""
                                     />
                                 </div>
                                 {errors.email && <p className="text-red-500 text-xs flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.email}</p>}

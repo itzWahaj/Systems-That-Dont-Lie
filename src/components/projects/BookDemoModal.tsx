@@ -16,7 +16,7 @@ interface BookDemoModalProps {
 
 const demoSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters"),
-    email: z.string().email("Please enter a valid email address"),
+    email: z.string().regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Please enter a valid email address (e.g. user@domain.com)"),
     organization: z.string().optional(),
     details: z.string().min(10, "Please provide more details about your use case"),
 });
@@ -216,7 +216,7 @@ export default function BookDemoModal({ isOpen, onClose, projectTitle }: BookDem
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                         className={`w-full bg-surface border ${errors.name ? 'border-red-500' : 'border-border'} rounded-sm py-3 pl-10 pr-4 text-main placeholder:text-muted focus:border-accent focus:outline-none transition-colors`}
-                                        placeholder="John Doe"
+                                        placeholder=""
                                     />
                                 </div>
                                 {errors.name && <p className="text-red-500 text-xs flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.name}</p>}
@@ -231,7 +231,7 @@ export default function BookDemoModal({ isOpen, onClose, projectTitle }: BookDem
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                         className={`w-full bg-surface border ${errors.email ? 'border-red-500' : 'border-border'} rounded-sm py-3 pl-10 pr-4 text-main placeholder:text-muted focus:border-accent focus:outline-none transition-colors`}
-                                        placeholder="john@example.com"
+                                        placeholder=""
                                     />
                                 </div>
                                 {errors.email && <p className="text-red-500 text-xs flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.email}</p>}
@@ -246,7 +246,7 @@ export default function BookDemoModal({ isOpen, onClose, projectTitle }: BookDem
                                         value={formData.organization}
                                         onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
                                         className="w-full bg-surface border border-border rounded-sm py-3 pl-10 pr-4 text-main placeholder:text-muted focus:border-accent focus:outline-none transition-colors"
-                                        placeholder="Company Name"
+                                        placeholder=""
                                     />
                                 </div>
                             </div>

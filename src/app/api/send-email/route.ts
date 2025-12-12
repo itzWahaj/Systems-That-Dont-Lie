@@ -29,7 +29,7 @@ export async function POST(req: Request) {
         if (type === 'reply') {
             // Logic for Admin replying to User
             mailOptions = {
-                from: process.env.EMAIL_USER, // Admin email
+                from: `"Muhammad Wahaj Shafiq" <${process.env.EMAIL_USER}>`, // Custom Name <email>
                 to: email, // User's email
                 subject: `Re: ${body.subject || 'Your Inquiry'}`,
                 html: `

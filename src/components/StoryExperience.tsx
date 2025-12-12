@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Lenis from "lenis";
@@ -17,10 +17,22 @@ export default function StoryExperience() {
     const containerRef = useRef<HTMLDivElement>(null);
     const panelsRef = useRef<(HTMLElement | null)[]>([]);
     const { reduceMotion } = useReducedMotion();
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        // Skip animations if reduced motion is enabled
-        if (reduceMotion) {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 1024);
+        };
+
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
+
+    useEffect(() => {
+        // Skip animations if reduced motion is enabled or on mobile
+        if (reduceMotion || isMobile) {
             return;
         }
         // Initialize Lenis
@@ -149,7 +161,7 @@ export default function StoryExperience() {
             ctx.revert();
             lenis.destroy();
         };
-    }, [reduceMotion]);
+    }, [reduceMotion, isMobile]);
 
     const addToRefs = (el: HTMLElement | null) => {
         if (el && !panelsRef.current.includes(el)) {
@@ -157,8 +169,8 @@ export default function StoryExperience() {
         }
     };
 
-    // When reduced motion is enabled, render sections normally (stacked)
-    if (reduceMotion) {
+    // When reduced motion is enabled or on mobile, render sections normally (stacked)
+    if (reduceMotion || isMobile) {
         return (
             <div className="flex flex-col w-full">
                 <GSAPHero />
